@@ -43,9 +43,9 @@ const LOOK_SHIFT: u32 = SHIFT - (64 - STEP.leading_zeros() - 1);
 /// ```
 /// use regex_specificity::get;
 ///
-/// let target = "abc";
-/// let high = get(target, "abc").unwrap();
-/// let low = get(target, ".*").unwrap();
+/// let string = "abc";
+/// let high = get(string, "abc").unwrap();
+/// let low = get(string, ".*").unwrap();
 ///
 /// assert!(high > low);
 /// ```
