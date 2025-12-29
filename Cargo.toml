@@ -1,0 +1,22 @@
+[package]
+name = "regex-specificity"
+version = "2025.12.1"
+edition = "2024"
+description = "A heuristic-based library to calculate regex specificity against a given string."
+documentation = "https://docs.rs/regex-specificity"
+homepage = "https://github.com/KKW557/regex-specificity"
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/KKW557/regex-specificity"
+rust-version = "1.92.0"
+
+[lib]
+name = "regex_specificity"
+path = "src/lib.rs"
+
+[[example]]
+name = "sort"
+path = "examples/sort.rs"
+
+[dependencies]
+regex-syntax = { version = "0.8", default-features = false }
