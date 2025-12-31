@@ -7,6 +7,9 @@
 
 A heuristic-based crate to calculate the **specificity** of a regular expression pattern against a specific string.
 
+This problem has been discussed for a long time (e.g., [Determine regular expression's specificity](https://stackoverflow.com/questions/3611860/determine-regular-expressions-specificity) from 2010), yet there is still no universally accepted or "standard" solution.
+~~I didn't mean to dig up old posts.~~
+
 ## Concept
 
 Specificity measures how "precise" a match is. For example, the pattern `abc` is more specific to the string "abc" than the pattern `a.c` or `.*`.
