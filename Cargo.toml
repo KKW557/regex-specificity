@@ -10,7 +10,7 @@ readme = "README.md"
 repository = "https://github.com/KKW557/regex-specificity"
 rust-version = "1.92.0"
 keywords = ["regex", "specificity", "heuristic", "pattern", "matching"]
-categories = ["regex", "no-std"]
+categories = ["text-processing", "no-std"]
 
 [lib]
 name = "regex_specificity"
