@@ -5,16 +5,9 @@ fn main() {
 
     // You must ensure that the pattern fully matches the string before calling
     let patterns = vec![
-        "alice@myprovider.com",
-        "^alice@myprovider.com$",
-        "alice@myprovider.co.",
-        ".lice@myprovider.com",
-        r"alice@myprovider\.[a-z]+",
-        r"alice@myprovider\..+",
-        ".*",
-        r"alice@(myprovider|other)\.com",
-        "",
-        "^$",
+        r".*",
+        r"[a-z]+@[a-z]+\.[a-z]+",
+        r"alice@[a-z]+\.[a-z]+",
     ];
 
     let mut results: Vec<(&str, u64)> = Vec::new();

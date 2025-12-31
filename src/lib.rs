@@ -1,21 +1,22 @@
 //! # regex-specificity
 //!
-//! This crate provides a fast, heuristic-based approach to calculate the **specificity**
+//! This crate provides a heuristic-based approach to calculate the **specificity**
 //! of a regular expression pattern against a specific string.
 //!
 //! ## Concept
-//! Specificity measures how "precise" a match is. For example, the pattern `abc` is
-//! more specific to the string "abc" than the pattern `a.c` or `.*`.
-//!
+//! 
+//! Specificity measures how "precise" a match is. For example, the pattern `abc` is more specific to the string "abc" than the pattern `a.c` or `.*`.
+//! 
 //! The calculation follows these principles:
-//! 1. **Positional Weighting**: Earlier matches contribute more to the total score than later ones.
-//! 2. **Certainty**: Literals (exact characters) score higher than character classes or wildcards.
-//! 3. **Information Density**: Narrower character classes (e.g., `[a-z]`) score higher than broader ones (e.g., `.`).
+//! 1. **Positional Weighting**: Earlier matches contribute more to the total specificity than later ones.
+//! 2. **Certainty**: Literals (exact characters) specificity higher than character classes or wildcards.
+//! 3. **Information Density**: Narrower character classes (e.g., `[a-z]`) specificity higher than broader ones (e.g., `.`).
 //! 4. **Branching Penalty**: Patterns with many alternatives (alternations) are penalized as they are less specific.
 
-#![no_std]
-#![forbid(unsafe_code)]
+#![cfg_attr(not(feature = "std"), no_std)]
 #![deny(missing_docs)]
+
+mod ffi;
 
 extern crate alloc;
 use alloc::boxed::Box;
@@ -31,22 +32,16 @@ const SHIFT: u32 = 16;
 const MAX_SHIFT: u32 = SHIFT - 1;
 const LOOK_SHIFT: u32 = SHIFT - (64 - STEP.leading_zeros() - 1);
 
-/// Calculates the specificity score of a pattern against a given string.
+/// Calculates the specificity of a pattern against a given string.
 ///
-/// # ⚠️ Warning
-/// This function **assumes** that the `string` is already a full match for the `pattern`.
-/// If the pattern does not match the string, the resulting score will be mathematically
-/// meaningless or inconsistent.
-///
-/// # Examples
-///
-/// ```
-/// use regex_specificity::get;
-///
+/// This function **assumes** that the `string` provided is already a **full match** for the `pattern`.
+/// If the pattern does not match the string, the resulting specificity will be mathematically inconsistent and meaningless for comparison purposes.
+/// 
+/// ```rust
 /// let string = "abc";
 /// let high = get(string, "abc").unwrap();
 /// let low = get(string, ".*").unwrap();
-///
+/// 
 /// assert!(high > low);
 /// ```
 pub fn get(string: &str, pattern: &str) -> Result<u64, Box<regex_syntax::Error>> {

@@ -1,22 +1,33 @@
 [package]
 name = "regex-specificity"
-version = "2025.12.1"
+version = "0.1.0"
 edition = "2024"
-description = "A heuristic-based library to calculate regex specificity against a given string."
+description = "A heuristic-based crate to calculate the specificity of a regular expression pattern against a specific string."
 documentation = "https://docs.rs/regex-specificity"
 homepage = "https://github.com/KKW557/regex-specificity"
 license = "MIT"
 readme = "README.md"
 repository = "https://github.com/KKW557/regex-specificity"
 rust-version = "1.92.0"
+keywords = ["regex", "specificity", "heuristic", "pattern", "matching"]
+categories = ["regex", "no-std"]
 
 [lib]
 name = "regex_specificity"
 path = "src/lib.rs"
+crate-type = ["rlib", "cdylib"]
 
 [[example]]
 name = "sort"
 path = "examples/sort.rs"
 
+[[example]]
+name = "counterintuitive"
+path = "examples/counterintuitive.rs"
+
 [dependencies]
-regex-syntax = { version = "0.8", default-features = false }
+regex-syntax = { version = "0.8", default-features = false, features = ["unicode"] }
+
+[features]
+default = ["std"]
+std = []
